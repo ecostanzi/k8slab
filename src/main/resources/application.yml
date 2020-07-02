@@ -1,0 +1,13 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+server:
+  shutdown: graceful
+spring:
+  profiles:
+    active: k8s
+  lifecycle:
+    timeout-per-shutdown-phase: 20s
