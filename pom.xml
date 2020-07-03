@@ -10,7 +10,7 @@
     </parent>
     <groupId>org.ecostanzi</groupId>
     <artifactId>order</artifactId>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <name>order</name>
     <description>Demo project for Spring Boot</description>
 
