@@ -1,0 +1,14 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  labels:
+    app: orderservice
+  name: orderingress
+spec:
+  rules:
+    - host: order-service.demo.intesys.net
+      http:
+        paths:
+          - backend:
+              serviceName: order-service
+              servicePort: 80
