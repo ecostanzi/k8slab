@@ -48,7 +48,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>docker.intesys.it/k8sdemo/orderservice:${project.version}</name>
+                        <name>enricocostanzi/orderservice:${project.version}</name>
                     </image>
                 </configuration>
             </plugin>
