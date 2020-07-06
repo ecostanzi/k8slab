@@ -6,11 +6,9 @@ management:
 
 server:
   shutdown: graceful
+  port: 8081
 spring:
   profiles:
     active: k8s
   lifecycle:
     timeout-per-shutdown-phase: 20s
-
-
-product-endpoint: http://localhost:8081

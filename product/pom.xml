@@ -9,12 +9,9 @@
         <relativePath>../</relativePath>
     </parent>
 
-    <artifactId>order</artifactId>
-    <name>order</name>
-
-    <properties>
-        <java.version>11</java.version>
-    </properties>
+    <artifactId>product</artifactId>
+    <name>product</name>
+    <version>1.0.1</version>
 
     <dependencies>
         <dependency>
@@ -28,10 +25,6 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-sleuth</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-logging</artifactId>
         </dependency>
 
         <dependency>
@@ -54,7 +47,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <image>
-                        <name>enricocostanzi/orderservice:${project.version}</name>
+                        <name>enricocostanzi/productservice:${project.version}</name>
                     </image>
                 </configuration>
             </plugin>
