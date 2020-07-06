@@ -12,3 +12,6 @@ spring:
     active: k8s
   lifecycle:
     timeout-per-shutdown-phase: 20s
+
+
+shelf: books
