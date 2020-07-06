@@ -22,15 +22,16 @@ spec:
           env:
             - name: SERVER_PORT
               value: '8080'
-#          readinessProbe:
-#            httpGet:
-#              path: /actuator/health/readiness
-#              port: http
-#            initialDelaySeconds: 20
-#            periodSeconds: 15
-#            failureThreshold: 6
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 6
+            periodSeconds: 5
           livenessProbe:
-              httpGet:
-                path: /actuator/health/liveness
-                port: http
-              initialDelaySeconds: 120
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
