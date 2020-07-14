@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -40,9 +41,9 @@ public class HomeController {
     }
 
     @GetMapping("/dostuff")
-    public String doStuff() {
+    public String doStuff(@RequestParam(value = "base", defaultValue = "1", required = false) Integer baseNum) {
         long start = System.currentTimeMillis();
-        mySlowFunction(20);
+        mySlowFunction(baseNum);
         long ms = System.currentTimeMillis() - start;
         return "doing stuff took " + ms + "ms";
     }
