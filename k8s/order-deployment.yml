@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: orderservice
-          image: docker.io/enricocostanzi/orderservice:1.1.0
+          image: docker.io/enricocostanzi/orderservice:1.3.0
           ports:
            - containerPort: 8080
           env:
