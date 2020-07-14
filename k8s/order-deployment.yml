@@ -23,21 +23,23 @@ spec:
             - name: PRODUCT-ENDPOINT
               value: http://product-service
           resources:
-            requests: # will only schedule it on a node that can give it that resource
+            requests:
               memory: "100Mi"
-              cpu: "250m" # 1/4 core
-#            limits: # make sure a container never goes above a certain value
-#              memory: "200Mi"
-#              cpu: "1000m" # 1 core
+              cpu: "200m"
+            limits:
+              memory: "1500Mi"
+              cpu: "500m"
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: 8080
             initialDelaySeconds: 6
             periodSeconds: 5
+            failureThreshold: 100
           livenessProbe:
               httpGet:
                 path: /actuator/health/liveness
                 port: 8080
               initialDelaySeconds: 5
               periodSeconds: 5
+              failureThreshold: 100
