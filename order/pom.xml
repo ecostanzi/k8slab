@@ -11,6 +11,7 @@
 
     <artifactId>order</artifactId>
     <name>order</name>
+    <version>1.1.0</version>
 
     <properties>
         <java.version>11</java.version>
