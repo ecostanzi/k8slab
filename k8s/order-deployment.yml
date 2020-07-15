@@ -5,7 +5,7 @@ metadata:
   labels:
     app: orderservice
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: orderservice
@@ -16,12 +16,14 @@ spec:
     spec:
       containers:
         - name: orderservice
-          image: docker.io/enricocostanzi/orderservice:1.3.0
+          image: docker.io/enricocostanzi/orderservice:1.4.0
           ports:
            - containerPort: 8080
           env:
             - name: PRODUCT-ENDPOINT
               value: http://product-service
+            - name: KUBERNETES_NAMESPACE
+              value: ecostanzi
           resources:
             requests:
               memory: "100Mi"

@@ -2,6 +2,9 @@ package org.ecostanzi.order;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
+import org.springframework.cache.CacheManager;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -46,6 +49,25 @@ public class HomeController {
         mySlowFunction(baseNum);
         long ms = System.currentTimeMillis() - start;
         return "doing stuff took " + ms + "ms";
+    }
+
+    @Autowired
+    CacheManager cacheManager;
+
+    @GetMapping("/cachetest")
+    public String cacheTest(@RequestParam(value = "key") String key) {
+
+        Cache distCache = cacheManager.getCache("dist-cache");
+
+        Cache.ValueWrapper value = distCache.get(key);
+        if(value == null) {
+            logger.info("CACHE MISS for key {}", key);
+            distCache.put(key, key);
+        } else {
+            logger.info("CACHE HIT for key {}", key);
+        }
+
+        return key;
     }
 
     void mySlowFunction(int baseNumber) {
