@@ -1,5 +1,6 @@
-package org.ecostanzi.order;
+package org.ecostanzi.order.controller;
 
+import org.ecostanzi.order.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,15 +35,7 @@ public class HomeController {
         return Arrays.asList(products);
     }
 
-    @Autowired
-    RedisTemplate<String, Object> redisTemplate;
 
-    @PostMapping("/order")
-    public void placeOrder(@RequestParam("product") String product) {
-        StringRecord entries = StreamRecords.string(Map.of("product", product))
-                .withStreamKey("orders");
-        redisTemplate.opsForStream().add(entries);
-    }
 
     @GetMapping("/sysresources")
     public String getSystemResources() {

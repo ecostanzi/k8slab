@@ -1,4 +1,4 @@
-package org.ecostanzi.order;
+package org.ecostanzi.order.configuration;
 
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;

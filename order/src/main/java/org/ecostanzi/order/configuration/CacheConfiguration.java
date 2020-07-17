@@ -1,4 +1,4 @@
-package org.ecostanzi.order;
+package org.ecostanzi.order.configuration;
 
 import org.infinispan.configuration.cache.CacheMode;
 import org.infinispan.configuration.cache.ConfigurationBuilder;
