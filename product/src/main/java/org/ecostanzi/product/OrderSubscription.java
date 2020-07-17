@@ -10,13 +10,10 @@ import org.springframework.data.redis.connection.stream.MapRecord;
 import org.springframework.data.redis.connection.stream.ReadOffset;
 import org.springframework.data.redis.connection.stream.StreamOffset;
 import org.springframework.data.redis.stream.StreamReceiver;
-import org.springframework.stereotype.Component;
 import reactor.core.Disposable;
-import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.util.Random;
 
 public class OrderSubscription {
 
@@ -36,8 +33,9 @@ public class OrderSubscription {
 
     @PostConstruct
     public void subscribe() {
-        String groupName = "mygroup";// "group-" + new Random().nextInt(1000);
+        String groupName = "mygroup";
         subscription = commands.xgroupCreate(XReadArgs.StreamOffset.from("orders", "$"), groupName, XGroupCreateArgs.Builder.mkstream(true))
+                .onErrorReturn("mygroup") //if the group already exists
                 .flatMapMany(s->
                         receiver.receive(
                                 Consumer.from(groupName, "my-consumer"),
