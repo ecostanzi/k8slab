@@ -12,6 +12,9 @@ spring:
     active: k8s
   lifecycle:
     timeout-per-shutdown-phase: 20s
+  redis:
+    port: 6379
+    host: localhost
 
 
 shelf: books

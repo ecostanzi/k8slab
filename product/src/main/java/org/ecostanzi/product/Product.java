@@ -1,11 +1,18 @@
 package org.ecostanzi.product;
 
+import java.util.UUID;
+
 public class Product {
 
+    private String id;
     private String name;
     private double price;
 
-    public Product(String name, double price) {
+    public Product() {
+    }
+
+    public Product(String id, String name, double price) {
+        this.id = id;
         this.name = name;
         this.price = price;
     }
@@ -24,5 +31,20 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                '}';
     }
 }

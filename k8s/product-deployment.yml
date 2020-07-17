@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: productservice
-          image: docker.io/enricocostanzi/productservice:1.0.2
+          image: docker.io/enricocostanzi/productservice:1.1.0
           ports:
            - containerPort: 8080
           envFrom:
@@ -25,6 +25,8 @@ spec:
           env:
             - name: SERVER_PORT
               value: '8080'
+            - name: SPRING_REDIS_HOST
+              value: 'redis'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
