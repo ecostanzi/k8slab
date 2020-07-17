@@ -1,10 +1,13 @@
 package org.ecostanzi.product;
 
+import io.lettuce.core.XGroupCreateArgs;
+import io.lettuce.core.XReadArgs;
 import io.lettuce.core.api.reactive.RedisReactiveCommands;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.redis.connection.stream.Consumer;
 import org.springframework.data.redis.connection.stream.MapRecord;
+import org.springframework.data.redis.connection.stream.ReadOffset;
 import org.springframework.data.redis.connection.stream.StreamOffset;
 import org.springframework.data.redis.stream.StreamReceiver;
 import org.springframework.stereotype.Component;
@@ -33,16 +36,20 @@ public class OrderSubscription {
 
     @PostConstruct
     public void subscribe() {
-        Flux<MapRecord<String, String, String>> messages =
-                receiver.receive(
-                        //Consumer.from("mygroup", "my-consumer"),
-                        StreamOffset.fromStart("orders"));
+        commands.xgroupCreate(XReadArgs.StreamOffset.from("orders", "$"), "mygroup", XGroupCreateArgs.Builder.mkstream(true))
+                .doOnNext(s->{
+                    Flux<MapRecord<String, String, String>> messages =
+                            receiver.receive(
+                                    Consumer.from("mygroup", "my-consumer"),
+                                    StreamOffset.create("orders", ReadOffset.lastConsumed())
+                            );
 
-        subscription = messages.flatMap(it -> {
-            log.info("Processing message: " + it);
-            return commands.zaddincr("product_orders", 1, it.getValue().toString());
+                    subscription = messages.flatMap(it -> {
+                        log.info("Processing message: " + it);
+                        return commands.xack("orders", "mygroup", it.getId().getValue());
 
-        }).subscribe();
+                    }).subscribe();
+                }).subscribe();
     }
 
     @PreDestroy
