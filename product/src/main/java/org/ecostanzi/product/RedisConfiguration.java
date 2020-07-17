@@ -44,13 +44,12 @@ public class RedisConfiguration {
     public StreamReceiver<String, MapRecord<String, String, String>> streamReceiver(
             ReactiveRedisConnectionFactory factory) {
         StreamReceiver.StreamReceiverOptions<String, MapRecord<String, String, String>> options =
-                StreamReceiver.StreamReceiverOptions.builder().pollTimeout(Duration.ofMillis(100))
+                StreamReceiver.StreamReceiverOptions.builder().pollTimeout(Duration.ofSeconds(3))
                         .build();
         return StreamReceiver.create(factory, options);
     }
 
     @Bean
-    @ConditionalOnProperty("stream.poll-enabled")
     public OrderSubscription updater(StreamReceiver<String, MapRecord<String, String, String>> streamReceiver,
                                     RedisReactiveCommands<String, String> commands) {
         return new OrderSubscription(streamReceiver, commands);

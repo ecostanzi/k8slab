@@ -18,7 +18,6 @@ import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import java.util.Random;
 
-@Component
 public class OrderSubscription {
 
     private Logger log = LoggerFactory.getLogger(OrderSubscription.class);
