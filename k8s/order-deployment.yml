@@ -14,6 +14,7 @@ spec:
       labels:
         app: orderservice
     spec:
+      serviceAccountName: jgroups-kubeping-service-account
       containers:
         - name: orderservice
           image: docker.io/enricocostanzi/orderservice:1.4.0

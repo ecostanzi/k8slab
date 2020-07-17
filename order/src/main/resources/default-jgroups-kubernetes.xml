@@ -26,10 +26,6 @@
            labels="${KUBERNETES_LABELS:app=orderservice}"
    />
 
-   <!--<dns.DNS_PING dns_query="${JGROUPS_DNS_QUERY:orderservice}"
-                 num_discovery_runs="3"
-   />-->
-
    <MERGE3 min_interval="10000"
            max_interval="30000"
    />
