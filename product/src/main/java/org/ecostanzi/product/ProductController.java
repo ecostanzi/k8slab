@@ -44,7 +44,7 @@ public class ProductController {
         product.setId(UUID.randomUUID().toString());
         product.setPrice(new Random().nextInt(10));
         return this.coffeeOps.opsForValue().set(product.getId(), product)
-                .then(Mono.empty());
+                .then();
     }
 
 }
