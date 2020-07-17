@@ -21,12 +21,13 @@ public class ProductLoader {
 
     @PostConstruct
     public void loadData() {
-        factory.getReactiveConnection().serverCommands().flushAll().thenMany(
-                Flux.just("Jet Black Redis", "Darth Redis", "Black Alert Redis")
-                        .map(name -> new Product(UUID.randomUUID().toString(), name, new Random().nextInt(10)))
-                        .flatMap(product -> productOps.opsForValue().set(product.getId(), product)))
-                .thenMany(productOps.keys("*")
-                        .flatMap(productOps.opsForValue()::get))
-                .subscribe(p -> System.out.println("Loaded product " + p));
+////        factory.getReactiveConnection().serverCommands().flushAll().thenMany(
+//                Flux.just("Jet Black Redis", "Darth Redis", "Black Alert Redis")
+//                        .map(name -> new Product(UUID.randomUUID().toString(), name, new Random().nextInt(10)))
+//                        .flatMap(product -> productOps.opsForValue().set(product.getId(), product))
+////        )
+//                .thenMany(productOps.keys("*")
+//                        .flatMap(productOps.opsForValue()::get))
+//                .subscribe(p -> System.out.println("Loaded product " + p));
     }
 }
