@@ -5,14 +5,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.Cache;
 import org.springframework.cache.CacheManager;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.redis.connection.stream.StreamRecords;
+import org.springframework.data.redis.connection.stream.StringRecord;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 public class HomeController {
@@ -31,6 +32,16 @@ public class HomeController {
         logger.info("Load order page");
         Product[] products = restTemplate.getForObject("/products", Product[].class);
         return Arrays.asList(products);
+    }
+
+    @Autowired
+    RedisTemplate<String, Object> redisTemplate;
+
+    @PostMapping("/order")
+    public void placeOrder(@RequestParam("product") String product) {
+        StringRecord entries = StreamRecords.string(Map.of("product", product))
+                .withStreamKey("orders");
+        redisTemplate.opsForStream().add(entries);
     }
 
     @GetMapping("/sysresources")
