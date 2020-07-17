@@ -16,6 +16,7 @@ import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.Random;
 
 @Component
 public class OrderSubscription {
@@ -36,19 +37,16 @@ public class OrderSubscription {
 
     @PostConstruct
     public void subscribe() {
-        commands.xgroupCreate(XReadArgs.StreamOffset.from("orders", "$"), "mygroup", XGroupCreateArgs.Builder.mkstream(true))
-                .doOnNext(s->{
-                    Flux<MapRecord<String, String, String>> messages =
-                            receiver.receive(
-                                    Consumer.from("mygroup", "my-consumer"),
-                                    StreamOffset.create("orders", ReadOffset.lastConsumed())
-                            );
-
-                    subscription = messages.flatMap(it -> {
-                        log.info("Processing message: " + it);
-                        return commands.xack("orders", "mygroup", it.getId().getValue());
-
-                    }).subscribe();
+        String groupName = "mygroup";// "group-" + new Random().nextInt(1000);
+        subscription = commands.xgroupCreate(XReadArgs.StreamOffset.from("orders", "$"), groupName, XGroupCreateArgs.Builder.mkstream(true))
+                .flatMapMany(s->
+                        receiver.receive(
+                                Consumer.from(groupName, "my-consumer"),
+                                StreamOffset.create("orders", ReadOffset.lastConsumed())
+                        )
+                ).flatMap(it -> {
+                    log.info("Processing message: " + it);
+                    return commands.xack("orders", groupName, it.getId().getValue());
                 }).subscribe();
     }
 
