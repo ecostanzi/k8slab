@@ -1,4 +1,4 @@
-package org.ecostanzi.order;
+package org.ecostanzi.order.domain;
 
 import java.util.Map;
 

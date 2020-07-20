@@ -1,4 +1,4 @@
-package org.ecostanzi.product;
+package org.ecostanzi.product.interfaces;
 
 import io.lettuce.core.XGroupCreateArgs;
 import io.lettuce.core.XReadArgs;
@@ -15,9 +15,9 @@ import reactor.core.Disposable;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
-public class OrderSubscription {
+public class OrderConsumer {
 
-    private Logger log = LoggerFactory.getLogger(OrderSubscription.class);
+    private Logger log = LoggerFactory.getLogger(OrderConsumer.class);
 
     private final StreamReceiver<String, MapRecord<String, String, String>> receiver;
     private final RedisReactiveCommands<String, String> commands;
@@ -25,8 +25,8 @@ public class OrderSubscription {
     private Disposable subscription;
 
 
-    public OrderSubscription(StreamReceiver<String, MapRecord<String, String, String>> receiver,
-                             RedisReactiveCommands<String, String> commands) {
+    public OrderConsumer(StreamReceiver<String, MapRecord<String, String, String>> receiver,
+                         RedisReactiveCommands<String, String> commands) {
         this.receiver = receiver;
         this.commands = commands;
     }

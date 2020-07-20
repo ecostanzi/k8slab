@@ -1,24 +1,21 @@
-package org.ecostanzi.product;
+package org.ecostanzi.product.config;
 
 import io.lettuce.core.RedisClient;
 import io.lettuce.core.api.StatefulRedisConnection;
 import io.lettuce.core.api.reactive.RedisReactiveCommands;
+import org.ecostanzi.product.interfaces.OrderConsumer;
+import org.ecostanzi.product.domain.Product;
 import org.springframework.beans.DirectFieldAccessor;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
-import org.springframework.data.redis.connection.stream.Consumer;
 import org.springframework.data.redis.connection.stream.MapRecord;
-import org.springframework.data.redis.connection.stream.StreamOffset;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.data.redis.core.ReactiveRedisTemplate;
 import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.data.redis.stream.StreamReceiver;
-import reactor.core.publisher.Flux;
 
 import java.time.Duration;
 
@@ -52,9 +49,9 @@ public class RedisConfiguration {
     }
 
     @Bean
-    public OrderSubscription updater(StreamReceiver<String, MapRecord<String, String, String>> streamReceiver,
-                                    RedisReactiveCommands<String, String> commands) {
-        return new OrderSubscription(streamReceiver, commands);
+    public OrderConsumer updater(StreamReceiver<String, MapRecord<String, String, String>> streamReceiver,
+                                 RedisReactiveCommands<String, String> commands) {
+        return new OrderConsumer(streamReceiver, commands);
     }
 
     @Bean(destroyMethod = "close")

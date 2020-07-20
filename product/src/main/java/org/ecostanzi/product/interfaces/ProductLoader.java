@@ -1,13 +1,11 @@
-package org.ecostanzi.product;
+package org.ecostanzi.product.interfaces;
 
+import org.ecostanzi.product.domain.Product;
 import org.springframework.data.redis.connection.ReactiveRedisConnectionFactory;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.stereotype.Component;
-import reactor.core.publisher.Flux;
 
 import javax.annotation.PostConstruct;
-import java.util.Random;
-import java.util.UUID;
 
 @Component
 public class ProductLoader {

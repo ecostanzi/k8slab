@@ -1,10 +1,8 @@
-package org.ecostanzi.order.controller;
+package org.ecostanzi.order.interfaces;
 
-import org.ecostanzi.order.Order;
+import org.ecostanzi.order.domain.Order;
 import org.springframework.data.redis.connection.stream.ObjectRecord;
-import org.springframework.data.redis.connection.stream.StreamRecords;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.hash.Jackson2HashMapper;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

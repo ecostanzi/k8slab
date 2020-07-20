@@ -1,6 +1,4 @@
-package org.ecostanzi.product;
-
-import java.util.UUID;
+package org.ecostanzi.order.domain;
 
 public class Product {
 
@@ -17,6 +15,14 @@ public class Product {
         this.price = price;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getName() {
         return name;
     }
@@ -31,20 +37,5 @@ public class Product {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                '}';
     }
 }

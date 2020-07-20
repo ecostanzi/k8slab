@@ -1,6 +1,6 @@
-package org.ecostanzi.product;
+package org.ecostanzi.product.interfaces;
 
-import org.reactivestreams.Publisher;
+import org.ecostanzi.product.domain.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
