@@ -54,6 +54,9 @@
                     <image>
                         <name>enricocostanzi/productservice:${project.version}</name>
                     </image>
+                    <layers>
+                        <enabled>true</enabled>
+                    </layers>
                 </configuration>
             </plugin>
         </plugins>
