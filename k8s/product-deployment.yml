@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: productservice
-          image: docker.io/enricocostanzi/productservice:1.1.0
+          image: docker.io/enricocostanzi/productservice:1.2.0
           ports:
            - containerPort: 8080
           envFrom:
