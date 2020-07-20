@@ -1,0 +1,12 @@
+namespace: ecostanzi
+
+resources:
+  - k8s/order-deployment.yml
+  - k8s/order-service.yml
+  - k8s/order-hpa.yml
+  - k8s/order-ingress.yml
+  - k8s/product-configuration.yml
+  - k8s/product-deployment.yml
+  - k8s/product-service.yml
+  - k8s/admin-server.yml
+  - k8s/redis.yml
