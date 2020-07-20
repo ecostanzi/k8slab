@@ -19,6 +19,7 @@
     <modules>
         <module>order</module>
         <module>product</module>
+        <module>admin-server</module>
     </modules>
 
     <properties>
