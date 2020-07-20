@@ -5,7 +5,7 @@ metadata:
   labels:
     app: orderservice
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: orderservice
@@ -17,7 +17,7 @@ spec:
       serviceAccountName: jgroups-kubeping-service-account
       containers:
         - name: orderservice
-          image: docker.io/enricocostanzi/orderservice:1.5.0
+          image: docker.io/enricocostanzi/orderservice:1.5.2
           ports:
            - containerPort: 8080
           env:
@@ -25,6 +25,8 @@ spec:
               value: http://product-service
             - name: KUBERNETES_NAMESPACE
               value: ecostanzi
+            - name: SPRING_REDIS_HOST
+              value: 'redis'
           resources:
             requests:
               memory: "100Mi"
