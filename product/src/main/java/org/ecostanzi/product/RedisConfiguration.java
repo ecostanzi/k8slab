@@ -44,7 +44,9 @@ public class RedisConfiguration {
     public StreamReceiver<String, MapRecord<String, String, String>> streamReceiver(
             ReactiveRedisConnectionFactory factory) {
         StreamReceiver.StreamReceiverOptions<String, MapRecord<String, String, String>> options =
-                StreamReceiver.StreamReceiverOptions.builder().pollTimeout(Duration.ofSeconds(3))
+                StreamReceiver.StreamReceiverOptions.builder()
+                        .pollTimeout(Duration.ofSeconds(3))
+                        .batchSize(100)
                         .build();
         return StreamReceiver.create(factory, options);
     }
