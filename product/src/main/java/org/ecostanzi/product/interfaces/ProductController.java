@@ -4,6 +4,7 @@ import org.ecostanzi.product.domain.Product;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.env.Environment;
+import org.springframework.data.r2dbc.core.DatabaseClient;
 import org.springframework.data.redis.core.ReactiveRedisOperations;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,9 +26,12 @@ public class ProductController {
     private final Environment environment;
     private final ReactiveRedisOperations<String, Product> coffeeOps;
 
-    public ProductController(Environment environment, ReactiveRedisOperations<String, Product> coffeeOps) {
+    private final DatabaseClient databaseClient;
+
+    public ProductController(Environment environment, ReactiveRedisOperations<String, Product> coffeeOps, DatabaseClient databaseClient) {
         this.environment = environment;
         this.coffeeOps = coffeeOps;
+        this.databaseClient = databaseClient;
     }
 
     @GetMapping("/products")
@@ -35,8 +39,9 @@ public class ProductController {
         var ip = InetAddress.getLocalHost();
         var hostname = ip.getHostName();
         logger.info("Getting the list of products  from shelve {}, host {}", environment.getProperty("shelf", "UNKNOWN"), hostname);
-        return coffeeOps.keys("*")
-                .flatMap(coffeeOps.opsForValue()::get);
+        return databaseClient.execute("select id, name, price from product")
+                .as(Product.class)
+                .fetch().all();
     }
 
     @PostMapping("/product")
