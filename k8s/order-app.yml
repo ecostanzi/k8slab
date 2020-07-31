@@ -24,7 +24,7 @@ spec:
             - name: PRODUCT-ENDPOINT
               value: http://product-service
             - name: KUBERNETES_NAMESPACE
-              value: ecostanzi
+              value: spring
             - name: SPRING_REDIS_HOST
               value: 'redis'
           resources:
@@ -48,3 +48,38 @@ spec:
               initialDelaySeconds: 5
               periodSeconds: 5
               failureThreshold: 100
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: order-service
+  labels:
+    app: orderservice
+    spring-boot: "true"
+spec:
+  selector:
+    app: orderservice
+  type: NodePort
+  ports:
+    - name: http
+      port: 80
+      targetPort: 8080
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: orderservice
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: orderservice
+  minReplicas: 1
+  maxReplicas: 2
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        target:
+          type: Utilization
+          averageUtilization: 50

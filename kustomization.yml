@@ -1,12 +1,13 @@
-namespace: ecostanzi
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: spring
+# namespace: ecostanzi
 
 resources:
-  - k8s/order-deployment.yml
-  - k8s/order-service.yml
-  - k8s/order-hpa.yml
-  - k8s/order-ingress.yml
-  - k8s/product-configuration.yml
-  - k8s/product-deployment.yml
-  - k8s/product-service.yml
-  - k8s/admin-server.yml
-  - k8s/redis.yml
+  - k8s/spring-namespace.yml
+  - k8s/support/kubeping-sa.yml
+  - k8s/order-app.yml
+  - k8s/product-app.yml
+  - k8s/admin-server-app.yml
+  - k8s/redis-app.yml

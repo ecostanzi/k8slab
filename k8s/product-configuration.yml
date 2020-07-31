@@ -1,6 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-data:
-  SHELF: history books
-metadata:
-  name: product-configuration
