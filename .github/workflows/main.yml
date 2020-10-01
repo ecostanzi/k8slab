@@ -1,5 +1,9 @@
-name: Builds Docker Containers
-on: [push]
+name: Product Microservice Build
+on:
+  push:
+    paths:
+      - product/**
+
 jobs:
   publish:
     runs-on: ubuntu-latest
