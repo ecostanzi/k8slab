@@ -1,0 +1,7 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: mysql
+spec:
+  type: ExternalName
+  externalName: liferaydb2.mysql.database.azure.com

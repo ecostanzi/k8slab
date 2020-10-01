@@ -26,7 +26,9 @@ spec:
             - name: KUBERNETES_NAMESPACE
               value: spring
             - name: SPRING_REDIS_HOST
-              value: 'redis'
+              value: 'redis-helm-redis-ha.data.svc.cluster.local'
+            - name: SPRING_REDIS_PORT
+              value: '26379'
           resources:
             requests:
               memory: "100Mi"
@@ -59,7 +61,7 @@ metadata:
 spec:
   selector:
     app: orderservice
-  type: NodePort
+  type: LoadBalancer
   ports:
     - name: http
       port: 80

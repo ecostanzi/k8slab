@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: productservice
-          image: docker.io/enricocostanzi/productservice:1.2.2
+          image: docker.io/enricocostanzi/productservice:1.3.2
           ports:
            - containerPort: 8080
           envFrom:
@@ -26,7 +26,17 @@ spec:
             - name: SERVER_PORT
               value: '8080'
             - name: SPRING_REDIS_HOST
-              value: 'redis'
+              value: 'redis-helm-redis-ha.data.svc.cluster.local'
+            - name: SPRING_REDIS_PORT
+              value: '26379'
+            - name: SPRING_R2DBC_URL
+              value: 'r2dbc:mysql://mysql:3306/productservice?serverTimezone=UTC'
+            - name: SPRING_R2DBC_USERNAME
+              value: 'liferay@liferaydb2'
+            - name: SPRING_R2DBC_PASSWORD
+              value: 'Test@1234'
+            - name: SPRING_FLYWAY_URL
+              value: 'jdbc:mysql://mysql:3306/productservice?serverTimezone=UTC'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness

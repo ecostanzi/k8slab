@@ -71,21 +71,21 @@ spec:
       port: 80
       targetPort: 8080
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  labels:
-    app: adminserver
-  name: adminserveringress
-spec:
-  rules:
-    - host: admin-server.demo.intesys.net
-      http:
-        paths:
-          - backend:
-              serviceName: admin-server
-              servicePort: 80
----
+#apiVersion: extensions/v1beta1
+#kind: Ingress
+#metadata:
+#  labels:
+#    app: adminserver
+#  name: adminserveringress
+#spec:
+#  rules:
+#    - host: admin-server.demo.intesys.net
+#      http:
+#        paths:
+#          - backend:
+#              serviceName: admin-server
+#              servicePort: 80
+#---
 apiVersion: autoscaling/v2beta2
 kind: HorizontalPodAutoscaler
 metadata:
@@ -118,7 +118,6 @@ metadata:
   name: spring-boot-admin-role
   labels:
     app: spring-boot-admin
-  namespace: spring
 rules:
 - apiGroups:
   - ""
@@ -136,13 +135,11 @@ apiVersion: rbac.authorization.k8s.io/v1
 kind: RoleBinding
 metadata:
   name: spring-boot-admin-role-binding
-  namespace: spring
   labels:
     app: spring-boot-admin
 subjects:
   - kind: ServiceAccount
     name: spring-boot-admin-sa
-    namespace: spring
 roleRef:
     kind: Role
     name: spring-boot-admin-role

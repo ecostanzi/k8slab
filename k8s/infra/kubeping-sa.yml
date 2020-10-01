@@ -27,4 +27,4 @@ roleRef:
 subjects:
   - kind: ServiceAccount
     name: jgroups-kubeping-service-account
-    namespace: spring
+    namespace: ecommerce
