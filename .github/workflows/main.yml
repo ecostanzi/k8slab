@@ -1,0 +1,14 @@
+name: Builds Docker Containers
+on: [push]
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up Maven Central Repository
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+      - name: Product Docker image
+        run: ./mvnw -pl order spring-boot:build-image
+
