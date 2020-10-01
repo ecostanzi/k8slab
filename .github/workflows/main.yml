@@ -21,15 +21,15 @@ jobs:
           key: ${{ runner.os }}-maven-product-${{ hashFiles('**/pom.xml') }}
           restore-keys: |
             ${{ runner.os }}-maven-product
-      - name: Moving to product folder
-        run: cd product
       - name: Product Docker image
         run: |
           ./mvnw package -DskipTests
           mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+        working-directory: product
       - name: get maven version
         run: |
           MVN_VERSION=$(../mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+        working-directory: product
       - name: Push to Docker Hub
         uses: docker/build-push-action@v1
         with:
@@ -37,5 +37,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: enricocostanzi/productservice
           tag_with_ref: true
+        working-directory: product
 
 
