@@ -15,7 +15,7 @@ jobs:
         with:
           java-version: 11
       - name: Product Docker image
-        run: ./mvnw -pl product spring-boot:build-image
+        run: ./mvnw -pl product spring-boot:build-image -DskipTests
       - name: get maven version
         run: |
           cd product
