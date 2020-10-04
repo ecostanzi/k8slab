@@ -1,8 +1,8 @@
 name: Product Microservice Build
 on:
   push:
-#    paths:
-#      - product/**
+    paths:
+      - product/**
     branches:
       - master
       - azure-*
@@ -11,8 +11,6 @@ jobs:
   publish:
     runs-on: ubuntu-latest
     env:
-      SERVICE_NAME: product
-      SERVICE_DIR: product
       DOCKER_IMAGE: enricocostanzi/productservice
     steps:
       - uses: actions/checkout@v2
