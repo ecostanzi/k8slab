@@ -1,5 +1,4 @@
 name: Product Microservice Build
-description: Builds Product Microservice
 on: [push]
 #on:
 #  push:
