@@ -44,7 +44,7 @@ jobs:
         with:
           context: ./product
           push: true
-          file: .product/Dockerfile
+          file: ./product/Dockerfile
           tags: enricocostanzi/productservice
 
 
