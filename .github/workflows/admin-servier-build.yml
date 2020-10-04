@@ -3,6 +3,7 @@ on:
   push:
     paths:
       - admin-server/**
+      - .github/admin-server-build.yml
     branches:
       - master
       - azure-*
@@ -29,13 +30,13 @@ jobs:
         run: |
           ../mvnw package -DskipTests
           mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
-        working-directory: adminserver
+        working-directory: admin-server
       - name: Estract maven version
         run: |
           echo 'MVN_VERSION<<EOF' >> $GITHUB_ENV
           ../mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-        working-directory: adminserver
+        working-directory: admin-server
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
       - name: Set up Docker Buildx
@@ -47,6 +48,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to Docker Hub
         run: /usr/bin/docker buildx build --tag $DOCKER_IMAGE:$MVN_VERSION --push .
-        working-directory: adminserver
+        working-directory: admin-server
 
 
