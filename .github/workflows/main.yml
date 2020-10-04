@@ -43,6 +43,6 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to Docker Hub
         run: /usr/bin/docker buildx build --tag enricocostanzi/productservice:`echo $MVN_VERSION` --push .
-        working_directory: product
+        working-directory: product
 
 
