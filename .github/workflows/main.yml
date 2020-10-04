@@ -1,8 +1,8 @@
 name: Product Microservice Build
 on:
   push:
-    paths:
-      - product/**
+#    paths:
+#      - product/**
     branches:
       - master
       - azure-*
