@@ -28,7 +28,9 @@ jobs:
         working-directory: product
       - name: Estract maven version
         run: |
-          MVN_VERSION=$(../mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec)
+          echo 'MVN_VERSION<<EOF' >> $GITHUB_ENV
+          ../mvnw -q -Dexec.executable=echo -Dexec.args='${project.version}' --non-recursive exec:exec >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
         working-directory: product
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v1
@@ -45,6 +47,7 @@ jobs:
           context: ./product
           push: true
           file: ./product/Dockerfile
-          tags: enricocostanzi/productservice:${MVN_VERSION}
+          tags: enricocostanzi/productservice
+          push_tag: ${MVN_VERSION}
 
 
