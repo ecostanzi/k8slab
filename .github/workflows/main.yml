@@ -1,13 +1,19 @@
 name: Product Microservice Build
-on: [push]
-#on:
-#  push:
-#    paths:
-#      - product/**
+on:
+  push:
+    paths:
+      - product/**
+    branches:
+      - master
+      - azure-*
 
 jobs:
   publish:
     runs-on: ubuntu-latest
+    env:
+      SERVICE_NAME: product
+      SERVICE_DIR: product
+      DOCKER_IMAGE: enricocostanzi/productservice
     steps:
       - uses: actions/checkout@v2
       - name: Set up Maven Central Repository
@@ -42,7 +48,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: Push to Docker Hub
-        run: /usr/bin/docker buildx build --tag enricocostanzi/productservice:`echo $MVN_VERSION` --push .
+        run: /usr/bin/docker buildx build --tag $DOCKER_IMAGE:$MVN_VERSION --push .
         working-directory: product
 
 
