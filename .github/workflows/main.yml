@@ -49,7 +49,6 @@ jobs:
           context: ./product
           push: true
           file: ./product/Dockerfile
-          tags: enricocostanzi/productservice
-          push_tag: ${MVN_VERSION}
+          tags: enricocostanzi/productservice:${MVN_VERSION}
 
 
