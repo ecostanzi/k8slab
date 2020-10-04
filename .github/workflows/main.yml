@@ -48,6 +48,6 @@ jobs:
           push: true
           file: ./product/Dockerfile
           tags: enricocostanzi/productservice
-          push_tag: ${MVN_VERSION}
+          push_tag: ${{MVN_VERSION}}
 
 
