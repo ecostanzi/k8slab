@@ -39,6 +39,5 @@ jobs:
           password: ${{ secrets.DOCKER_PASSWORD }}
           repository: enricocostanzi/productservice
           tag_with_ref: true
-        working-directory: product
 
 
