@@ -4,4 +4,4 @@ metadata:
   name: mysql
 spec:
   type: ExternalName
-  externalName: liferaydb2.mysql.database.azure.com
+  externalName: ecostanzidb.mysql.database.azure.com

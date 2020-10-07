@@ -1,22 +1,30 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 
-namespace: ecommerce-staging
+namespace: ecommerce
 
 resources:
-  - infra
-  - apps
+  - infra/kubeping-sa.yml
+  - infra/mysql-service.yml
+  - infra/redis-app.yml
+  - apps/product-app.yml
+  - apps/order-app.yml
+#  - apps/admin-server-app.yml
+
+configMapGenerator:
+  - name: product-service # like the spring.application.name of product service
+    files:
+      - config/application.yml
 
 images:
   - name: docker.io/enricocostanzi/productservice
-    newTag: 1.3.2
+    newTag: 1.5.0
   - name: docker.io/enricocostanzi/orderservice
-    newTag: 1.5.3
-  - name: docker.io/enricocostanzi/adminserver
-    newTag: 1.2.2
+    newTag: 1.6.0
+  - name: docker.io/enricocostanzi/adminserverservice
+    newTag: 1.3.0
   - name: redis
     newTag: 6.0.4
-
 
 commonLabels:
   owner: ecostanzi

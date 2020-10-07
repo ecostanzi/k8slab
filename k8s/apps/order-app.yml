@@ -24,11 +24,11 @@ spec:
             - name: PRODUCT-ENDPOINT
               value: http://product-service
             - name: KUBERNETES_NAMESPACE
-              value: spring
+              value: ecommerce
             - name: SPRING_REDIS_HOST
-              value: 'redis-helm-redis-ha.data.svc.cluster.local'
+              value: 'redis'
             - name: SPRING_REDIS_PORT
-              value: '26379'
+              value: '6379'
           resources:
             requests:
               memory: "100Mi"
