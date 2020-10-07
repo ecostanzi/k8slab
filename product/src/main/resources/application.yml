@@ -8,6 +8,8 @@ server:
   shutdown: graceful
   port: 8081
 spring:
+  application:
+    name: product-service
   profiles:
     active: k8s
   lifecycle:
