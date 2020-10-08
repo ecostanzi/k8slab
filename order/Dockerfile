@@ -1,4 +1,5 @@
 FROM adoptopenjdk:11-jre-hotspot
+RUN apt-get install -y curl
 RUN addgroup spring && useradd -g spring spring
 USER spring:spring
 ARG DEPENDENCY=target/dependency

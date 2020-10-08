@@ -6,6 +6,7 @@ on:
     branches:
       - master
       - azure-*
+      - dockerhack
 
 jobs:
   publish:
